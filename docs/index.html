@@ -1,70 +1,838 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zonder Drempel App</title>
   <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #111a2e;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f4f7fb;
+      --muted: #b8c2d3;
+      --accent: #2f80ed;
+      --accent-2: #27ae60;
+      --warning: #f2c94c;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #222;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(47, 128, 237, 0.22), transparent 35%),
+        radial-gradient(circle at top right, rgba(39, 174, 96, 0.18), transparent 30%),
+        linear-gradient(180deg, #08101d 0%, #0b1220 100%);
+      color: var(--text);
     }
-    h1, h2 {
-      color: #0f4c81;
-    }
-    .screenshots img {
-      width: 250px;
-      margin: 10px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .button {
-      display: inline-block;
-      padding: 12px 18px;
-      background: #0f4c81;
-      color: white;
+
+    a {
+      color: inherit;
       text-decoration: none;
-      border-radius: 8px;
-      margin-right: 10px;
     }
-    video {
-      max-width: 100%;
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(8, 16, 29, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), #56ccf2);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 72px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(47, 128, 237, 0.14);
+      color: #dbeafe;
+      border: 1px solid rgba(47, 128, 237, 0.3);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 4.4rem);
+      line-height: 1.02;
+      margin: 0 0 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      max-width: 64ch;
+      margin: 0 0 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-weight: 600;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--accent), #56ccf2);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-points {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-points span {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: min(360px, 100%);
+      background: #0f172a;
+      border-radius: 36px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      width: 34%;
+      height: 24px;
+      background: #0a0f1b;
+      border-radius: 0 0 18px 18px;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .screen {
+      overflow: hidden;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(47, 128, 237, 0.14), transparent 28%),
+        #0b1323;
+      min-height: 700px;
+      position: relative;
+    }
+
+    .mock-status {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 18px 8px;
+      font-size: 13px;
+      color: #d6deec;
+      opacity: 0.9;
+    }
+
+    .mock-map {
+      height: 250px;
+      margin: 0 14px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 18% 32%, rgba(39, 174, 96, 0.8) 0 8px, transparent 9px),
+        radial-gradient(circle at 63% 48%, rgba(47, 128, 237, 0.95) 0 8px, transparent 9px),
+        radial-gradient(circle at 74% 24%, rgba(39, 174, 96, 0.8) 0 8px, transparent 9px),
+        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+        linear-gradient(90deg, #13203a 0%, #172742 100%);
+      background-size: auto, auto, auto, 28px 28px, 28px 28px, auto;
+      background-position: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mock-map::after {
+      content: "Breda";
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      font-size: 12px;
+      background: rgba(11, 18, 32, 0.7);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d8e1ef;
+    }
+
+    .bottom-sheet {
+      margin: -28px 14px 14px;
+      background: rgba(17, 26, 46, 0.94);
+      backdrop-filter: blur(14px);
+      border-radius: 26px;
+      border: 1px solid var(--card-border);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .sheet-handle {
+      width: 46px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+      margin: 0 auto 12px;
+    }
+
+    .sheet-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .sheet-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 12px;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: #dbe3f0;
+    }
+
+    .badge.green {
+      background: rgba(39, 174, 96, 0.16);
+      color: #c8f2d9;
+      border-color: rgba(39, 174, 96, 0.22);
+    }
+
+    .sheet-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mini-btn {
+      min-height: 42px;
       border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-btn.primary {
+      background: linear-gradient(135deg, var(--accent), #56ccf2);
+    }
+
+    .mini-btn.secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 36px 0;
+    }
+
+    .section h2 {
+      font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+      margin: 0 0 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 70ch;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(47, 128, 237, 0.24), rgba(39, 174, 96, 0.24));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 22px;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .feature-panel {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .feature-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .feature-item span {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .shot {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .shot img {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+      background: #0b1323;
+      min-height: 320px;
+      object-fit: cover;
+    }
+
+    .shot-label {
+      font-size: 14px;
+      color: var(--muted);
       margin-top: 10px;
+      text-align: center;
+    }
+
+    .video-box {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    video {
+      width: 100%;
+      border-radius: 18px;
+      display: block;
+      background: #000;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .step {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), #56ccf2);
+      margin-bottom: 12px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 48px 0 60px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .showcase,
+      .grid-3,
+      .screenshots,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 52px;
+      }
+
+      .phone {
+        max-width: 420px;
+      }
+
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Zonder Drempel App</h1>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-badge">♿</span>
+        <span>Zonder Drempel</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#over">Over</a>
+        <a href="#functies">Functies</a>
+        <a href="#screens">Screens</a>
+        <a href="#demo">Demo</a>
+        <a href="#workflow">Workflow</a>
+      </nav>
+    </div>
+  </header>
 
-  <p>
-    Een app die toegankelijke locaties inzichtelijk maakt voor gebruikers.
-    De app toont locaties op de kaart, laat reviews en foto's zien en helpt
-    gebruikers om beter te beoordelen of een plek toegankelijk is.
-  </p>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Mobiele toegankelijkheidsapp • SwiftUI • Supabase</div>
+          <h1>Toegankelijke locaties sneller en betrouwbaarder zichtbaar maken.</h1>
+          <p>
+            Zonder Drempel helpt gebruikers bij het vinden, beoordelen en valideren van
+            toegankelijke locaties. De app combineert kaartdata, community-input,
+            reviews, foto's en verificatie van locaties in één duidelijke mobiele ervaring.
+          </p>
 
-  <p>
-    <a class="button" href="https://github.com/Gittiyap/Zonder-drempel-App" target="_blank">Bekijk GitHub repository</a>
-  </p>
+          <div class="cta-row">
+            <a class="button button-primary" href="https://github.com/Gittiyap/Zonder-drempel-App" target="_blank" rel="noreferrer">
+              Bekijk GitHub
+            </a>
+            <a class="button button-secondary" href="#demo">
+              Bekijk demo
+            </a>
+          </div>
 
-  <h2>Functies</h2>
-  <ul>
-    <li>Kaart met locaties</li>
-    <li>Detailpagina's met toegankelijkheidsinformatie</li>
-    <li>Reviews en foto's</li>
-    <li>Opslaan en favorieten</li>
-  </ul>
+          <div class="hero-points">
+            <span>Kaart met locaties</span>
+            <span>Foto's en reviews</span>
+            <span>Community validatie</span>
+            <span>Apple Maps integratie</span>
+          </div>
+        </div>
 
-  <h2>Demo video</h2>
-  <p>Voeg later hier een video toe als je wilt.</p>
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="screen">
+              <div class="mock-status">
+                <span>09:41</span>
+                <span>●●● 100%</span>
+              </div>
 
-  <h2>Screenshots</h2>
-  <div class="screenshots">
-    <p>Voeg later hier screenshots toe als je wilt.</p>
-  </div>
+              <div class="mock-map"></div>
+
+              <div class="bottom-sheet">
+                <div class="sheet-handle"></div>
+                <div class="sheet-title">Breda Library</div>
+                <div class="sheet-sub">Molenstraat 6, Breda</div>
+
+                <div class="badge-row">
+                  <span class="badge green">Drempelvrij</span>
+                  <span class="badge green">Toilet</span>
+                  <span class="badge green">Brede paden</span>
+                  <span class="badge">Community review</span>
+                </div>
+
+                <div class="sheet-actions">
+                  <div class="mini-btn primary">Bekijk details</div>
+                  <div class="mini-btn secondary">Apple Maps</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="over">
+      <div class="container">
+        <h2>Wat de app doet</h2>
+        <p class="section-intro">
+          De app is ontworpen om toegankelijkheidsinformatie concreter te maken dan generieke
+          kaartplatformen. Niet alleen de locatie zelf telt, maar juist de bruikbare details:
+          drempelvrijheid, toiletvoorzieningen, foto's van de ingang en ervaringen van gebruikers.
+        </p>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">🗺️</div>
+            <h3>Kaartgerichte ontdekking</h3>
+            <p>
+              Gebruikers zien locaties direct op de kaart en kunnen snel doorklikken naar
+              details, reviews en foto's.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📷</div>
+            <h3>Bewijs via foto's</h3>
+            <p>
+              Niet alleen een label, maar visuele onderbouwing van ingang, toilet,
+              routing en andere toegankelijkheidskenmerken.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">👥</div>
+            <h3>Community-validatie</h3>
+            <p>
+              Niet-geclaimde locaties kunnen door gebruikers worden beoordeeld, waarna
+              admins ze kunnen omzetten naar gevalideerde locaties.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="functies">
+      <div class="container showcase">
+        <div class="feature-panel">
+          <h2>Kernfuncties</h2>
+          <p class="section-intro" style="margin-bottom: 0;">
+            De app combineert kaartnavigatie, locatiedata, persoonlijke acties en
+            community-bijdragen in één productervaring.
+          </p>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div>✅</div>
+              <div>
+                <strong>Toegankelijkheidslabels</strong>
+                <span>Duidelijke indicaties zoals drempelvrij, invalidentoilet, brede paden en parkeermogelijkheden.</span>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div>⭐</div>
+              <div>
+                <strong>Reviews en foto's</strong>
+                <span>Gebruikers delen ervaringen en visuele bewijzen per locatie om de betrouwbaarheid te vergroten.</span>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div>❤️</div>
+              <div>
+                <strong>Favorieten en opslaan</strong>
+                <span>Belangrijke of interessante locaties kunnen persoonlijk worden opgeslagen voor later gebruik.</span>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div>🧭</div>
+              <div>
+                <strong>Externe navigatie</strong>
+                <span>Locaties kunnen worden geopend in Apple Maps voor routebegeleiding buiten de app.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-panel">
+          <h2>Productlogica</h2>
+          <p class="section-intro" style="margin-bottom: 0;">
+            Het concept draait niet alleen om tonen, maar ook om het opbouwen van
+            betrouwbare toegankelijkheidsinformatie.
+          </p>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div>🔵</div>
+              <div>
+                <strong>POI's als startpunt</strong>
+                <span>Algemene locaties verschijnen eerst als reguliere points of interest op de kaart.</span>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div>🟢</div>
+              <div>
+                <strong>Geclaimde locaties</strong>
+                <span>Zodra een locatie voldoende is onderbouwd of beheerd, wordt die als verrijkte toegankelijke locatie getoond.</span>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div>🛠️</div>
+              <div>
+                <strong>Admin-validatie</strong>
+                <span>Admins kunnen data beheren, locaties verrijken en bijdragen omzetten naar formele toegankelijkheidsinformatie.</span>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div>☁️</div>
+              <div>
+                <strong>Supabase backend</strong>
+                <span>Authenticatie, opslag, reviews, foto's en locatiedata worden centraal beheerd via Supabase.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="screens">
+      <div class="container">
+        <h2>Screenshots</h2>
+        <p class="section-intro">
+          Deze sectie wordt pas echt sterk zodra je hier eigen screenshots uit de app in zet.
+          Upload ze in de map <code>docs</code> en vervang de voorbeeldbestanden hieronder.
+        </p>
+
+        <div class="screenshots">
+          <figure class="shot">
+            <img src="screen-map.png" alt="Kaartoverzicht van de app" />
+            <figcaption class="shot-label">Kaartoverzicht</figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="screen-detail.png" alt="Detailpagina van een locatie" />
+            <figcaption class="shot-label">Locatiedetail</figcaption>
+          </figure>
+
+          <figure class="shot">
+            <img src="screen-review.png" alt="Review- en fotosectie" />
+            <figcaption class="shot-label">Reviews en foto's</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="demo">
+      <div class="container">
+        <h2>Demo</h2>
+        <p class="section-intro">
+          Voeg hier een schermopname van je app toe. Dat maakt de site direct veel overtuigender
+          voor docenten, stakeholders en portfolio-bezoekers.
+        </p>
+
+        <div class="video-box">
+          <video controls poster="screen-map.png">
+            <source src="demo.mp4" type="video/mp4" />
+            Je browser ondersteunt deze video niet.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container">
+        <h2>Gebruikersflow</h2>
+        <p class="section-intro">
+          Dit is de kern van de ervaring zoals je die in je demo of stakeholderpresentatie kunt uitleggen.
+        </p>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3>Zoek een locatie</h3>
+            <p>De gebruiker opent de kaart en bekijkt reguliere of gevalideerde locaties in de omgeving.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3>Bekijk details</h3>
+            <p>De gebruiker ziet toegankelijkheidskenmerken, foto's en ervaringen van andere gebruikers.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3>Lever een bijdrage</h3>
+            <p>Via reviews en foto's kan extra bewijs worden toegevoegd aan bestaande of nog niet geclaimde locaties.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">4</div>
+            <h3>Valideer en verbeter</h3>
+            <p>Admins verrijken de dataset en zetten relevante locaties om naar gevalideerde toegankelijke punten.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Zonder Drempel App • SwiftUI • Supabase • GitHub Pages demo
+    </div>
+  </footer>
 </body>
 </html>
