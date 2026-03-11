@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		88C516312F5ED30E003BBED5 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C516302F5ED30B003BBED5 /* DesignSystem.swift */; };
+		DF5CF2EB2F4F3E5600585CF8 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CF2EA2F4F3E5600585CF8 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DF5CF27D2F4F375200585CF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,25 +29,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		88C516302F5ED30B003BBED5 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		DF5CF26F2F4F374E00585CF8 /* Zonder drempel App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zonder drempel App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5CF27C2F4F375200585CF8 /* Zonder drempel AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zonder drempel AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5CF2862F4F375200585CF8 /* Zonder drempel AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Zonder drempel AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		DF5CF2712F4F374E00585CF8 /* Zonder drempel App */ = {
+		DF5CF29C2F4F387F00585CF8 /* App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Zonder drempel App";
+			path = App;
 			sourceTree = "<group>";
 		};
-		DF5CF27F2F4F375200585CF8 /* Zonder drempel AppTests */ = {
+		DF5CF29D2F4F388A00585CF8 /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Zonder drempel AppTests";
+			path = Models;
 			sourceTree = "<group>";
 		};
-		DF5CF2892F4F375200585CF8 /* Zonder drempel AppUITests */ = {
+		DF5CF29F2F4F38DA00585CF8 /* Services */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Zonder drempel AppUITests";
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DF5CF2A02F4F38E400585CF8 /* Repositories */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		DF5CF2A12F4F38F100585CF8 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF5CF2EB2F4F3E5600585CF8 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,9 +92,12 @@
 		DF5CF2662F4F374E00585CF8 = {
 			isa = PBXGroup;
 			children = (
-				DF5CF2712F4F374E00585CF8 /* Zonder drempel App */,
-				DF5CF27F2F4F375200585CF8 /* Zonder drempel AppTests */,
-				DF5CF2892F4F375200585CF8 /* Zonder drempel AppUITests */,
+				88C516302F5ED30B003BBED5 /* DesignSystem.swift */,
+				DF5CF2A12F4F38F100585CF8 /* Views */,
+				DF5CF2A02F4F38E400585CF8 /* Repositories */,
+				DF5CF29F2F4F38DA00585CF8 /* Services */,
+				DF5CF29C2F4F387F00585CF8 /* App */,
+				DF5CF29D2F4F388A00585CF8 /* Models */,
 				DF5CF2702F4F374E00585CF8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,10 +128,15 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				DF5CF2712F4F374E00585CF8 /* Zonder drempel App */,
+				DF5CF29C2F4F387F00585CF8 /* App */,
+				DF5CF29D2F4F388A00585CF8 /* Models */,
+				DF5CF29F2F4F38DA00585CF8 /* Services */,
+				DF5CF2A02F4F38E400585CF8 /* Repositories */,
+				DF5CF2A12F4F38F100585CF8 /* Views */,
 			);
 			name = "Zonder drempel App";
 			packageProductDependencies = (
+				DF5CF2EA2F4F3E5600585CF8 /* Supabase */,
 			);
 			productName = "Zonder drempel App";
 			productReference = DF5CF26F2F4F374E00585CF8 /* Zonder drempel App.app */;
@@ -129,9 +154,6 @@
 			);
 			dependencies = (
 				DF5CF27E2F4F375200585CF8 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				DF5CF27F2F4F375200585CF8 /* Zonder drempel AppTests */,
 			);
 			name = "Zonder drempel AppTests";
 			packageProductDependencies = (
@@ -153,9 +175,6 @@
 			dependencies = (
 				DF5CF2882F4F375200585CF8 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				DF5CF2892F4F375200585CF8 /* Zonder drempel AppUITests */,
-			);
 			name = "Zonder drempel AppUITests";
 			packageProductDependencies = (
 			);
@@ -171,7 +190,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2610;
-				LastUpgradeCheck = 2610;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					DF5CF26E2F4F374E00585CF8 = {
 						CreatedOnToolsVersion = 26.1;
@@ -195,6 +214,9 @@
 			);
 			mainGroup = DF5CF2662F4F374E00585CF8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DF5CF2E92F4F3E4300585CF8 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DF5CF2702F4F374E00585CF8 /* Products */;
 			projectDirPath = "";
@@ -236,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88C516312F5ED30E003BBED5 /* DesignSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +351,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -385,6 +409,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -400,6 +425,7 @@
 				DEVELOPMENT_TEAM = S8R7N82T9J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We gebruiken je locatie om toegankelijke plekken te tonen.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +458,7 @@
 				DEVELOPMENT_TEAM = S8R7N82T9J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We gebruiken je locatie om toegankelijke plekken te tonen.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -578,6 +605,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF5CF2E92F4F3E4300585CF8 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF5CF2EA2F4F3E5600585CF8 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF5CF2E92F4F3E4300585CF8 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DF5CF2672F4F374E00585CF8 /* Project object */;
 }
